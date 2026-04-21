@@ -1,1 +1,1573 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SchlagerMetall – Rockshow mit Schlagercharme. Live Coverband für Festivals, Clubs, Stadtfeste und Events.">
+  <title>SchlagerMetall</title>
 
+  <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    @font-face {
+      font-family: 'FedoraSF';
+      src: url('fonts/SF Fedora.woff') format('woff');
+    }
+
+    /* ===== DESIGN SYSTEM ===== */
+    :root {
+      --bg: #000;
+      --panel: rgba(15, 15, 15, 0.9);
+      --text: #dcdcdc;
+      --muted: #a0a0a0;
+      --accent: #ffb300;
+      --accent-red: #c94b4b;
+
+      --space-xs: 8px;
+      --space-sm: 16px;
+      --space-md: 32px;
+      --space-lg: 64px;
+      --space-xl: 100px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    .tabs {
+  tab-size: 6;
+  white-space: pre;
+  font-family: inherit;
+}
+      
+    html {
+      scroll-behavior: smooth;
+    }
+      
+    html, body {
+    overflow-x: hidden;
+    }
+      
+   a:hover {
+     color: var(--accent-red);
+   }
+
+    body {
+      font-family: 'Saira Condensed', sans-serif;
+      font-size: 1.5rem;
+      color: var(--text);
+      background: url('images/crowd.jpg') center/cover no-repeat;
+      background-attachment: fixed;
+      position: relative;
+      padding-bottom: calc(60px + 20px);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: -1;
+    }
+
+      section {
+  scroll-margin-top: 90px;
+}
+      
+    /* ===== HEADER ===== */
+    header {
+      height: 72px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: var(--space-xs) 8%;
+      background: var(--bg);
+    }
+
+    header img {
+      height: 40px;
+    }
+
+    .menu-toggle {
+      display: none;
+      font-size: 28px;
+      background: none;
+      border: none;
+      color: var(--accent);
+      cursor: pointer;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-md);
+    }
+
+    .nav-links a {
+  font-family: 'Saira Condensed', sans-serif;
+  text-decoration: none;
+  color: var(--accent);
+  letter-spacing: 2px;
+  transition: 0.3s;
+}
+
+    .nav-links a:hover {
+      color: var(--accent-red);
+      text-shadow: 0 0 10px rgba(255,179,0,0.6);
+    }
+      
+  .social-links {
+  display: flex;
+  gap: 30px;
+  margin-left: auto;   /* schiebt sie Richtung Menü */
+  margin-right: 35px;  /* Abstand zum Menü */
+}
+
+.social-links a {
+  color: var(--accent);
+  font-size: 1.3rem;
+  transition: 0.25s ease;
+}
+
+.social-links a:hover {
+  color: var(--accent-red);
+  transform: scale(1.1);
+}
+
+
+/* ===== HERO SYSTEM ===== */
+
+/* HERO SLIDER (allgemein für alle Heroes) */
+.hero-slider {
+  padding-top: 72px;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  height: 100svh;
+  background: #000;
+  overflow: hidden;
+}
+
+/* ===== HERO SLIDE (allgemein für alle Heroes) ===== */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: calc(clamp(60px, 8vh, 80px) + 20px); /* Abstand unter fixed Header */
+  box-sizing: border-box;
+
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+
+/* aktive Slide */
+.hero-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* ===== HERO LAYER SYSTEM ===== */
+
+/* Basis Layer Container */
+.hero-layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Hintergrund Layer */
+.hero-layer.bg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+      
+.hero-layer.bg img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  display: block;
+  filter: brightness(1.0) contrast(1.2);
+}
+      
+/* Größensteuerung zentral */
+.hero-img-70 .hero-layer.bg img { width: 70%; height: 70%; }
+.hero-img-60 .hero-layer.bg img { width: 60%; height: 60%; }
+.hero-img-80 .hero-layer.bg img { width: 80%; height: 80%; }
+.hero-img-40 .hero-layer.bg img { width: 40%; height: 40%; }
+      
+      
+      
+
+/* Overlay (dunkle Abdunklung) */
+.hero-layer.overlay {
+  
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 1;
+}
+
+/* ===== HERO LOGO ===== */
+
+/* Standard Logo (Hero 1 – groß & zentriert) */
+.hero-layer.logo {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(clamp(20px, 5vh, 60px));
+}
+
+.hero-layer.logo img {
+  width: clamp(300px, 70vw, 1600px);
+
+  filter: drop-shadow(0 0 25px rgba(255, 179, 0, 0.25));
+}
+
+/* Kleines Logo (Hero 2+) */
+.hero-layer.logo.small {
+  top: calc(clamp(20px, 8vh, 40px) + 10px);
+  position: absolute;
+  right: 20px;   /* korrekt für oben rechts */
+  left: auto;
+
+  z-index: 2;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+/* WICHTIG: höhere Spezifität als Default-Logo */
+.hero-layer.logo.small img {
+  width: 30vw;
+  max-width: 500px;
+
+  filter: drop-shadow(0 0 10px rgba(255, 179, 0, 0.25));
+}
+
+/* ===== HERO CONTENT (Titel) ===== */
+.hero-layer.content {
+  width: 100%;
+  padding: 0 5vw;
+  position: absolute;
+  top: clamp(55%, 65%, 70%);
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 3;
+}
+
+.hero-layer.content h1 {
+  font-family: 'FedoraSF', sans-serif;
+  font-size: clamp(3rem, 4.2vw, 5.8rem);
+  width: max-content;
+  margin: 0 auto;
+    max-width: 90vw;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: ellipsis;
+  letter-spacing: 3px;
+
+  color: var(--accent);
+
+  text-shadow:
+    1.5px 1.5px 0 rgba(200, 0, 0, 2.5),
+   -1.5px 1.5px 0 rgba(200, 0, 0, 2.5),
+    1.5px -1.5px 0 rgba(200, 0, 0, 2.5),
+   -1.5px -1.5px 0 rgba(200, 0, 0, 2.5),
+
+    0 0 10px rgba(255, 179, 0, 0.7),
+    0 0 25px rgba(255, 179, 0, 0.6);
+
+  margin-top: 20px;
+}
+
+/* ===== HERO ARROWS ===== */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  font-size: 40px;
+  color: var(--accent);
+
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  padding: 10px 18px;
+  cursor: pointer;
+
+  z-index: 10;
+}
+
+.hero-arrow.left { left: 20px; }
+.hero-arrow.right { right: 20px; }
+
+/* ===== HERO 1 (SPECIAL) ===== */
+.hero-main {
+  background: radial-gradient(
+    ellipse at 50% 30%,
+    rgba(255, 179, 0, 0.18),
+    rgba(0, 0, 0, 0.85) 60%,
+    #000
+  );
+}
+
+      
+/* ===== END OF HERO SYSTEM ===== */
+      
+      
+      
+      
+
+    /* ===== SECTIONS ===== */
+    section:not(.hero):not(.hero-slider) {
+      width: 95%;
+      max-width: 1600px;
+
+      margin: var(--space-md) auto;
+      padding: var(--space-md) var(--space-md);
+
+      background: var(--panel);
+      border-radius: 18px;
+      border: 1px solid rgba(255,179,0,0.18);
+
+      box-shadow:
+        0 25px 60px rgba(0,0,0,0.85),
+        inset 0 2px 0 rgba(255,255,255,0.06),
+        inset 0 -6px 14px rgba(0,0,0,0.75);
+
+      transition: 0.3s ease;
+    }
+
+    section:not(.hero):not(.hero-slider):hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 35px 80px rgba(0,0,0,0.95),
+        inset 0 2px 0 rgba(255,255,255,0.08),
+        inset 0 -8px 18px rgba(0,0,0,0.85);
+    }
+
+    h2 {
+      font-family: 'FedoraSF', sans-serif;
+      color: var(--accent);
+      margin-bottom: var(--space-md);
+    }
+      
+    h3 {
+      font-family: 'FedoraSF', sans-serif;
+      color: var(--accent);
+      margin-bottom: var(--space-md);
+      }
+
+    p {
+      color: var(--text);
+      max-width: 700px;
+      line-height: 1.6;
+    }
+
+    /* ===== GIG CARDS ===== */
+    .gig {
+      display: grid;
+      grid-template-columns: 1fr 1fr minmax(0, 2fr) 140px;
+      align-items: center;
+
+      gap: 16px;
+      padding: 18px 22px;
+      margin-bottom: 14px;
+
+      background: rgba(20, 20, 20, 0.85);
+      border: 1px solid rgba(255, 179, 0, 0.15);
+      border-radius: 14px;
+
+      box-shadow:
+        0 15px 40px rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.05);
+
+      transition: 0.3s ease;
+    }
+      
+    .gig > div {
+  min-width: 0;
+}
+
+    .gig:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255, 179, 0, 0.4);
+      box-shadow:
+        0 25px 60px rgba(0,0,0,0.85),
+        0 0 20px rgba(255,179,0,0.1);
+    }
+
+    .gig-date {
+      font-family: 'Saira Condensed', sans-serif;
+      color: var(--accent);
+      font-size: 1.8rem;
+    }
+
+    .gig-place,
+    .gig-venue {
+      font-size: 1.8rem;
+    }
+
+    .gig-venue {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    /* ===== TICKET BUTTON ===== */
+   .gig-ticket {
+     white-space: nowrap;
+     justify-self: start;
+     padding: 6px 14px;
+
+     font-family: 'Saira Condensed', sans-serif;
+     font-size: 1.4rem;
+
+     color: #c94b4b;
+     background: transparent;
+
+     border: 1px solid #c94b4b;
+     border-radius: 6px;
+
+     text-decoration: none;
+     transition: 0.25s ease;
+
+}
+
+.gig-ticket:hover {
+  background: #c94b4b;
+  color: #000;
+  transform: scale(1.05);
+  }
+      
+      .gig-info {
+  justify-self: start;
+
+  font-family: 'Saira Condensed', sans-serif;
+  font-size: 1.4rem;
+
+  color: var(--text);
+  letter-spacing: 1px;
+}
+      
+      .gig-link {
+  color: var(--text);
+  text-decoration: underline;
+  transition: 0.25s ease;
+}
+
+.gig-link:hover {
+  color: var(--accent-red);
+  text-shadow: 0 0 10px rgba(201,75,75,0.4);
+}
+      
+   /* ===== BAND ===== */    
+      
+  .band-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.band-text p {
+  max-width: none;
+}
+
+.band-image img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  transition: 0.3s ease;
+  filter: brightness(0.9) contrast(1.2);  
+}
+
+.band-image img:hover {
+  transform: scale(1.02);
+}
+      
+.band-caption {
+  margin-top: 8px;
+  font-size: 1.1rem;   /* kleiner */
+  color: var(--text);
+  text-align: center;  /* zentriert */
+  line-height: 1.3;
+  letter-spacing: 0.5px;
+}
+
+.band-facts {
+  margin-top: var(--space-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--accent);
+  font-size: 1.5rem;
+}  
+
+      
+      /* =========================
+   MEDIA (2 Videos + Audio)
+========================= */
+
+.media-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.video-wrapper {
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.video-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* AUDIO BLOCK */
+.audio-player {
+  grid-column: 1 / -1;
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  border-radius: 14px;
+  border: 1px solid rgba(255,179,0,0.2);
+  background: rgba(20,20,20,0.6);
+}
+
+.audio-player h3 {
+  color: var(--accent);
+  margin-bottom: var(--space-sm);
+}
+
+/* TRACKS */
+.track {
+  margin-bottom: 12px;
+  color: var(--text);
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 6px 8px;
+  border-radius: 6px;
+}
+
+.track:hover {
+  color: var(--accent-red);
+  text-shadow: 0 0 10px rgba(201,75,75,0.6);
+}
+
+.track.active {
+  color: var(--accent);
+  text-shadow: 0 0 10px rgba(255,179,0,0.4);
+}
+
+/* AUDIO PLAYER */
+audio {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 10px;
+  filter: sepia(1) hue-rotate(-10deg) saturate(2) contrast(1.1);
+}
+
+/* ===== Booking ===== */      
+  
+  #booking-info p {
+  max-width: none;
+  width: 100%;
+}
+      
+  a[href^="mailto"] {
+  color: var(--accent);
+}
+      
+  a[href^="mailto"]:hover {
+  color: var(--accent-red);
+}
+  
+  /* ===== BOOKING ===== */  
+   .booking {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-row {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+}
+
+/* links (Name/Adresse) */
+.b-left {
+  flex: 0 0 clamp(100px, 40vw, 220px);
+}
+
+/* Tel / Fax / Mobil → exakt untereinander */
+.b-label {
+  flex: 0 0 clamp(30px, 12vw, 50px);
+}
+
+/* Nummern frei */
+.b-value {
+  flex: 1;
+  white-space: nowrap;
+}    
+      
+  /* ===== DOWNLOADS im Bereich Für Veranstalter===== */
+
+.download-item {
+  display: grid;
+  grid-template-columns: 0.7fr 0.7fr 0.7fr 140px;
+  align-items: center;
+
+  gap: 16px;
+  padding: 18px 22px;
+  margin-bottom: 14px;
+
+  background: rgba(20, 20, 20, 0.85);
+  border: 1px solid rgba(255, 179, 0, 0.15);
+  border-radius: 14px;
+
+  box-shadow:
+    0 15px 40px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+
+  transition: 0.3s ease;
+}
+      
+      .download-type {
+  color: var(--accent);
+}
+
+.download-desc {
+  color: var(--text);
+}
+
+.download-item:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 179, 0, 0.4);
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.85),
+    0 0 20px rgba(255,179,0,0.1);
+}
+
+/* BUTTON */
+      .download-btn {
+  justify-self: end;
+
+  padding: 6px 14px;
+
+  font-family: 'Saira Condensed', sans-serif;
+  font-size: 1.4rem;
+
+  color: var(--accent);
+  background: transparent;
+
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.download-btn:hover {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  transform: scale(1.05);
+}
+      
+      .download-icon {
+  font-size: 1.6rem;
+  text-align: center;
+  color: var(--accent);
+}
+
+      
+      .file-icon.pdf {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #fff;
+  background: #d32f2f;
+  padding: 2px 6px;
+  border-radius: 4px;
+  letter-spacing: 1px;
+}
+  
+  
+ /* ===== Impressum ===== */ 
+      
+ /* versteckt den Inhalt standardmäßig */   
+   .impressum-content {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.4s ease;
+}
+
+
+/* wenn aktiv → sichtbar */
+.impressum-content.open {
+  max-height: 9999px;
+  opacity: 1;
+}
+
+
+/* optional: Styling für den Link */
+.toggle-impressum {
+  font-family: 'Saira Condensed', sans-serif;
+  font-size: 1rem;
+  color: var(--accent);
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.25s ease;
+}      
+ .impressum-header {
+  display: flex;
+  align-items: baseline;
+  gap: 40px;
+}
+      
+      .impressum-header h2 {
+  margin: 0;
+}
+  
+ .toggle-impressum:hover {
+  color: var(--accent-red);
+  text-shadow: 0 0 10px rgba(201,75,75,0.6);
+}     
+      
+      #impressum p {
+  max-width: none;
+  width: 100%;
+}
+  
+   
+      
+    /* ===== FOOTER ===== */
+   footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  height: 60px;
+  padding: 0 8%;
+
+  background: var(--bg);
+  font-size: 1.2rem;
+  color: var(--text);
+
+  z-index: 1000;
+} 
+      
+ .to-top {
+      color: var(--accent);
+      text-decoration: none;
+      font-family: 'Saira Condensed', sans-serif;
+    }
+
+/* =========================
+   MOBILE (FINAL CLEAN)
+========================= */
+
+@media (max-width: 768px) {
+
+  /* ===== GLOBAL ===== */
+  body {
+    font-size: 1rem;
+   background-attachment: scroll;
+  }
+
+  body::before {
+    background: rgba(0,0,0,0.0);
+  }
+    
+  section {
+    margin: var(--space-md) auto;
+    padding: var(--space-md) var(--space-sm);
+    scroll-margin-top: 70px;
+  }
+
+  .gig-ticket:hover,
+  .gig-ticket:active,
+  .download-btn:hover,
+  .download-btn:active {
+    background: transparent !important;
+    color: inherit !important;
+    transform: none !important;
+  }  
+    
+  .download-btn,
+  .download-btn:visited,
+  .download-btn:hover,
+  .download-btn:active,
+  .download-btn:focus {
+    color: var(--accent) !important;
+  }  
+    
+  /* ===== HEADER / NAV ===== */
+    header {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 12px;
+  overflow: visible; /* WICHTIG: nicht hidden */
+  z-index: 1000;
+  }
+
+  header img {
+    height: 32px;
+    flex-shrink: 0;
+    max-width: 120px;
+    object-fit: contain;
+  }
+    
+  .social-links {
+  display: flex;
+  gap: 18px;
+  margin-left: auto;
+  align-items: center;
+  z-index: 1;
+  }
+
+  .menu-toggle {
+  display: block;
+  position: relative;
+  z-index: 2000;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 60px;
+    right: 12px;
+    background: var(--bg);
+    flex-direction: column;
+    padding: var(--space-sm);
+    border-radius: 10px;
+    border: 1px solid #222;
+    gap: var(--space-sm);
+    z-index: 1500;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  /* ===== HERO ===== */
+    
+  .hero-slider {
+    min-height: 0;
+    height: 35vh;
+  }
+
+  .hero-layer.logo.small {
+    display: none;
+    top: 60px;
+  }  
+
+  .hero-layer.logo.small img {
+    width: 55vw;
+    max-width: 300px;
+  }
+
+  .hero-layer.content {
+    top: 85%;
+    padding: 0 8vw;
+  }
+
+  .hero-img-60 .hero-layer.bg img {
+    padding-top: 10px;
+    width: 55%;
+    height: 55%;
+  }
+  
+  .hero-img-40 .hero-layer.bg img {
+    width: 55%;
+    height: 55%;
+  }  
+  
+  .hero-layer.content h1 {
+    font-size: 1.6rem;
+    margin-top: 10px;
+    white-space: normal;
+    letter-spacing: 2px;
+  }
+
+  .hero-arrow {
+    font-size: 28px;
+    padding: 8px 12px;
+  }
+    
+    
+  /* LOGO etwas kleiner & weniger Abstand */
+  .hero-layer.logo img {
+    width: 70vw;
+  }
+
+  .hero-layer.logo {
+    transform: translateY(20px);
+  }
+
+
+  /* ===== GIGS ===== */
+  .gig {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .gig-date,
+  .gig-place,
+  .gig-venue {
+    font-size: 1.4rem;
+  }
+
+  .gig-ticket {
+    justify-self: start;
+    margin-top: 8px;
+    white-space: nowrap;
+  }
+
+  /* ===== BAND ===== */
+  .band-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .band-image {
+    order: -1;
+  }
+
+  .band-caption {
+    font-size: 0.9rem;      /* kleiner auf Mobile */
+    line-height: 1.4;       /* etwas luftiger */
+    padding: 0 10px;        /* Abstand links/rechts */
+    text-align: center;     /* bleibt zentriert */
+  }
+    
+  .band-facts {
+    font-size: 1.2rem;
+  }
+
+  /* ===== MEDIA ===== */
+  .media-grid {
+    grid-template-columns: 1fr;
+  }
+
+ 
+    
+  /* ===== DOWNLOADS ===== */
+  .download-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    position: relative;
+  }
+
+  .download-btn {
+    justify-self: start;
+  }
+
+    /* ===== DOWNLOAD ICON INLINE (MOBILE ONLY) ===== */
+
+  .download-type {
+    padding-right: 40px; /* Platz für Icon */
+  }
+
+  .download-icon {
+    position: absolute;
+    top: 18px;
+    right: 20px;
+
+    font-size: 1.2rem;
+  }
+
+    /* ===== IMPRESSUM ===== */
+  #impressum h2 {
+    line-height: 1.2;
+  }
+    
+  /* ===== FOOTER ===== */
+  footer {
+    position: static;
+    flex-direction: column;
+    gap: 8px;
+    height: auto;
+    padding: var(--space-sm);
+    text-align: center;
+  }
+       
+ a,
+  a:visited,
+  a:hover,
+  a:active,
+  a:focus {
+    color: var(--accent) !important;
+    text-shadow: none !important;
+  }
+
+  .gig-ticket,
+  .gig-ticket:visited,
+  .gig-ticket:hover,
+  .gig-ticket:active,
+  .gig-ticket:focus {
+    color: #c94b4b !important;
+  }  
+    
+    
+}
+
+      
+/* =========================
+   MOBILE Landscape
+========================= */       
+      
+@media (max-width: 768px) and (orientation: landscape) {
+
+         
+    .hero-slider {
+    height: 80vh;
+  }
+
+  .hero-layer.logo img {
+    width: 60vw;
+  }
+
+  .hero-layer.logo {
+    transform: translateY(10px);
+  }
+
+  .hero-layer.content {
+    top: 82%;
+  }
+
+  .hero-layer.content h1 {
+    font-size: 2.5rem;
+    margin-top: 10px;
+    white-space: normal;
+    letter-spacing: 2px;
+  }
+      
+  .hero-img-60 .hero-layer.bg img {
+    padding-top: 30px;
+      width: 70%;
+    height: 70%;
+  }
+  
+  .hero-img-40 .hero-layer.bg img {
+    width: 65%;
+    height: 65%;
+  }  
+    
+  /* ===== Shows ===== */
+  
+  .gig {
+    min-height: 90px;
+  }
+    
+  .gig-date,
+  .gig-place,
+  .gig-venue,
+  .gig-ticket,
+  .gig-info {
+    font-size: 1.2rem;
+  }
+    
+  .gig {
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .gig-date {
+    grid-column: 1;
+    font-size: 1.2rem;
+    white-space: nowrap;
+  }
+
+  .gig-place {
+    grid-column: 2;
+    font-size: 1.2rem;
+    white-space: nowrap;
+  }
+
+  .gig-venue {
+    grid-column: 3;
+    font-size: 1.2rem;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .gig-ticket,
+  .gig-info {
+    grid-column: 4;
+    justify-self: end;
+    white-space: nowrap;
+  }
+}
+      
+/* =========================
+   MOBILE ENDE
+========================= */      
+      
+      
+  </style>
+    
+    
+</head>
+
+<body id="top">
+
+<header>
+  <img src="images/Logo_gross_transparent.gif" alt="SchlagerMetall Logo">
+
+  <div class="social-links">
+    <a href="https://facebook.com/schlagermetall" target="_blank" aria-label="Facebook">
+      <i class="fab fa-facebook-f"></i>
+    </a>
+    <a href="https://instagram.com/deineband" target="_blank" aria-label="Instagram">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>  
+    
+  <button class="menu-toggle" aria-label="Menü öffnen">☰</button>
+
+  <nav class="nav-links">
+    <a href="#shows">Shows</a>
+    <a href="#band">Band</a>
+    <a href="#media">Media</a>
+    <a href="#booking-info">Booking</a>
+    <a href="#booking">Für Veranstalter</a>
+  </nav>
+</header>
+
+    
+    
+<!-- ========== HERO SLIDER ========== -->
+<div class="hero-slider">
+
+  <!-- HERO 1 (MAIN HERO) -->
+  <div class="hero-slide active hero-main">
+
+    <div class="hero-layer logo">
+      <img src="images/Logo_gross_transparent.gif" alt="SchlagerMetall Logo">
+    </div>
+
+    <div class="hero-layer content">
+     <h1>In Nomine Hossa</h1>
+    </div>
+
+  </div>
+
+  <!-- HERO 2 -->
+  <div class="hero-slide hero-img-60">
+
+    <!-- Hintergrundbild -->
+    <div class="hero-layer bg">
+      <img src="images/geldern_für_hero.jpg" alt="Hero 2 Background">
+    </div>
+
+    <!-- Overlay -->
+   <!-- <div class="hero-layer overlay"></div>  -->
+      
+
+    <!-- kleines Logo -->
+    <div class="hero-layer logo small">
+      <img src="images/Logo_gross_transparent.gif" alt="SchlagerMetall Logo">
+    </div>
+
+  </div>
+
+  <!-- HERO 3 -->
+  <div class="hero-slide hero-img-40">
+
+    <!-- Hintergrundbild -->
+    <div class="hero-layer bg">
+      <img src="images/gleichung_für_hero.jpg" alt="Hero 3 Background">
+    </div>
+
+    <!-- Overlay -->
+   <!-- <div class="hero-layer overlay"></div> -->
+
+    <!-- kleines Logo -->
+    <div class="hero-layer logo small">
+      <img src="images/Logo_gross_transparent.gif" alt="SchlagerMetall Logo">
+    </div>
+
+  </div>
+
+  <!-- HERO NAV ARROWS -->
+  <button class="hero-arrow left">&#10094;</button>
+  <button class="hero-arrow right">&#10095;</button>
+
+</div>
+<!-- ========== END HERO ========== -->
+
+    
+    
+<section id="shows">
+  <h2>Shows</h2>
+
+  <div class="gig">
+    <div class="gig-date">01.05.2026</div>
+    <div class="gig-place">Hennef-Geistingen</div>
+    <div class="gig-venue">Tanz in den Mai</div>
+    <div class="gig-info">Eintritt frei</div>
+  </div>
+    
+  <div class="gig">
+    <div class="gig-date">13.06.2026</div>
+    <div class="gig-place">Lahnstein</div>
+    <div class="gig-venue">Geschlossene Gesellschaft</div>
+  </div>
+    
+  <div class="gig">
+    <div class="gig-date">11.07.2026</div>
+    <div class="gig-place">Bonn</div>
+    <div class="gig-venue">Namenlos</div>
+    <a href="https://ticketlink.de" class="gig-ticket" target="_blank" rel="noopener noreferrer">Tickets hier</a>
+  </div>
+    
+  <div class="gig">
+    <div class="gig-date">05.09.2026</div>
+    <div class="gig-place">Bonn-Beuel</div>
+    <div class="gig-venue">Stadtfest</div>
+    <div class="gig-info">Eintritt frei</div>
+  </div>
+    
+  <div class="gig">
+    <div class="gig-date">09.10.2026</div>
+    <div class="gig-place">Siegburg</div>
+    <div class="gig-venue">
+        <a href="https://www.wellnesspark-siegburg.de/" target="_blank" rel="noopener noreferrer" class="gig-link">
+        Kubana
+        </a>
+    </div>
+    <a href="https://www.bonnticket.de/event/schlager-metall-kubana-live-club-21099153/?affiliate=5BT" class="gig-ticket" target="_blank" rel="noopener noreferrer">Tickets hier</a>
+  </div>
+
+</section>
+
+<section id="band">
+  <h2>Band</h2>
+
+  <div class="band-grid">
+    <div class="band-text">
+      <p>
+        Du wolltest schon immer wissen, was Peter Maffay, Marianne Rosenberg, DJ Ötzi, Nena oder Helene Fischer gemeinsam haben mit Guns'n'Roses, AC/DC, Metallica, Queen oder Rammstein?
+        <br><br>
+        Dann bist du hier genau richtig, denn SchlagerMetall bringt zusammen, was zusammen gehört!<br><br>
+        Wir präsentieren d i e Rockschow mit Schlagercharme für eine unvergessliche Party! Sing' dir die Seele aus dem Leib und tanz' mit im neu geschaffenen Foxtrott-Pogo-Stil, wenn wir altbekannte Klassiker aus beiden Genres in irrwitzigen Mash-Ups neu präsentieren!
+        <br><br>
+     </p>
+        
+      <div class="band-facts">
+       <span>✔ Festival- & Club-erprobt</span>
+       <span>✔ 100% Live</span>
+       <span>✔ Mitsing-Garantie</span>
+      </div>
+     <br>
+     
+        
+    </div>
+
+    <div class="band-image">
+      <img src="images/steht_für_band_kachel.jpg" alt="SchlagerMetall Band">
+      <div class="band-caption">
+        von links: Tom Delay, Flix Graf von Dresch, Carlo con Carne, Tom G. Dudel, GG van Diep
+      </div>  
+    </div>
+  </div>
+</section>
+
+<section id="media">
+  <h2>Media</h2>
+
+  <div class="media-grid">
+
+    <!-- VIDEO LINKS -->
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/JTpBPwp0oOs" allowfullscreen></iframe>
+    </div>
+
+    <!-- VIDEO RECHTS -->
+    <div class="video-wrapper">
+      <iframe src="https://www.youtube.com/embed/c-BW8VdGibE" allowfullscreen></iframe>
+    </div>
+
+    <!-- AUDIO BLOCK -->
+    <div class="audio-player">
+      <h3>Audio</h3>
+
+      <div class="track" data-src="audio/SM_Esteem_Live_Snippet.mp3">
+        Ein bisschen Esteem (Click to play)
+      </div>
+
+      <div class="track" data-src="audio/SM_Wagen_Snippet.mp3">
+        Livin' on a Wagen (Click to play)
+      </div>
+
+      <audio id="globalPlayer" controls></audio>
+    </div>
+
+  </div>
+</section>
+
+<section id="booking-info">
+  <h2>Booking</h2>
+
+    <p>
+  Du möchtest SchlagerMetall für dein Event buchen? Wir spielen auf Festivals, Stadtfesten, beim Karneval, in Clubs und auf privaten Veranstaltungen.<br><br>
+  Eigenes PA-System nach Absprache möglich.<br><br>
+  Kontakt für Booking-Anfragen:
+</p>
+
+<img src="images/ks_logo.jpg" alt="KS Concerts Logo"><br>
+
+<div class="booking">
+  <div class="booking-row">
+    <span class="b-left">Sven Komp</span>
+    <span class="b-label">Tel</span>
+    <span class="b-value">0228 – 47 95 70</span>
+  </div>
+
+  <div class="booking-row">
+    <span class="b-left">Königswinterer Str.</span>
+    <span class="b-label">Fax</span>
+    <span class="b-value">0228 – 422 02 71</span>
+  </div>
+
+  <div class="booking-row">
+    <span class="b-left">53227 Bonn</span>
+    <span class="b-label">Mobil</span>
+    <span class="b-value">0172 – 253 12 59</span>
+  </div>
+</div>
+    
+<p>
+  E-Mail: <a href="mailto:sk@ksconcerts.de">sk@ksconcerts.de</a>
+</p>
+  
+</section>
+    
+<section id="booking">
+  <h2>Für Veranstalter</h2>
+
+  <div class="download-item">
+    <div class="download-type">Pressekit</div>
+    <div class="download-desc">Pressetext & Logos</div>
+    <div class="download-icon">
+      <i class="fa-solid fa-file-zipper"></i>
+    </div>
+    <a href="downloads/SchlagerMetall_Pressetext_Logos.zip" class="download-btn" download>
+      Download
+    </a>
+  </div>
+    
+  <div class="download-item">
+    <div class="download-type">Techrider</div>
+    <div class="download-desc">Technische Infos</div>
+    <div class="download-icon">
+        <span class="file-icon pdf">PDF</span>
+    </div>
+        <a href="downloads/SchlagerMetall_Techrider.pdf" class="download-btn" target="_blank" rel="noopener noreferrer">
+
+      Öffnen
+    </a>
+  </div>
+
+  
+
+</section>
+
+<section id="impressum">
+
+  <div class="impressum-header">
+    <h2>Impressum und Datenschutz</h2>  
+    <a href="#" class="toggle-impressum">anzeigen</a>
+  </div>
+
+  <div class="impressum-content">
+    <p>
+      <br>
+      Kontakt (Webmaster) & Impressum sowie Design & Programmierung<br>
+      Thomas Reuter<br>
+      Birklestr. 29c<br>
+      531844 Troisdorf<br>
+      Tel. 0160-753 5678<br>
+      E-Mail: tom-delay@schlagermetall.de<br><br>
+     
+      Haftungshinweis:<br>
+      Trotz sorgfältiger inhaltlicher Kontrolle übernehme ich keine Haftung für die Inhalte externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich. Die Informationen auf dieser Homepage werden mit Sorgfalt zusammengestellt und regelmäßig aktualisiert. Ich übernehme jedoch keine Haftung oder Garantie für die Aktualität, Richtigkeit und Vollständigkeit der Angaben.<br><br>
+            
+      Datenschutzerklärung:<br><br>
+      SchlagerMetall nimmt den Schutz Ihrer personenbezogenen Daten sehr ernst. Wir haben daher technische und organisatorische Maßnahmen getroffen, um sicher zu stellen, dass die Vorschriften über den Datenschutz sowohl von uns als auch von externen Dienstleistern beachtet werden.<br>
+      Personenbezogene Daten werden auf unseren Webseiten nur dann im technisch notwendigen Umfang erhoben und gespeichert, wenn Sie sich an einem Newsletter-Verteiler anmelden, für eine Veranstaltung registrieren oder Daten im Rahmen einer Ausschreibung an uns übermitteln.<br><br>
+        Grundlegendes<br>
+        Diese Datenschutzerklärung soll die Nutzer dieser Website über die Art, den Umfang und den Zweck der Erhebung und Verwendung personenbezogener Daten durch den Websitebetreiber SchlagerMetall informieren.<br>
+        Der Websitebetreiber nimmt Ihren Datenschutz sehr ernst und behandelt Ihre personenbezogenen Daten vertraulich und entsprechend der gesetzlichen Vorschriften. Da durch neue Technologien und die ständige Weiterentwicklung dieser Webseite Änderungen an dieser Datenschutzerklärung vorgenommen werden können, empfehlen wir Ihnen sich die Datenschutzerklärung in regelmäßigen Abständen wieder durchzulesen.<br>
+        Definitionen der verwendeten Begriffe (z.B. „personenbezogene Daten“ oder“Verarbeitung“) finden Sie in Art. 4 DSGVO.<br><br>
+    
+        Zugriffsdaten<br>
+        Wir, der Websitebetreiber bzw. Seitenprovider, erheben aufgrund unseres berechtigten Interesses (s. Art. 6 Abs. 1 lit. f. DSGVO) Daten über Zugriffe auf die Website und speichern diese als ‚,Server-Logfiles’ auf dem Server der Website ab. Folgende Daten werden so protokolliert:?->Besuchte Website?->Uhrzeit zum Zeitpunkt des Zugriffes?->Menge der gesendeten Daten in Byte?->Quelle/Verweis, von welchem Sie auf die Seite gelangten?->Verwendeter Browser?->Verwendetes Betriebssystem?->Verwendete IP-Adresse?Die Server-Logfiles werden für maximal 7 Tage gespeichert und anschließend gelöscht. Die Speicherung der Daten erfolgt aus Sicherheitsgründen, um z. B. Missbrauchsfälle aufklären zu können. Müssen Daten aus Beweisgründen aufgehoben werden, sind sie solange von der Löschung ausgenommen bis der Vorfall endgültig geklärt ist.<br><br>
+   
+        Reichweitenmessung & Cookies<br>
+        Diese Website verwendet Cookies zur pseudonymisierten Reichweitenmessung, die entweder von unserem Server oder dem Server Dritter an den Browser des Nutzers übertragen werden. Bei Cookies handelt es sich um kleine Dateien, welche auf Ihrem Endgerät gespeichert werden. Ihr Browser greift auf diese Dateien zu. Durch den Einsatz von Cookies erhöht sich die Benutzerfreundlichkeit und Sicherheit dieser Website.?Falls Sie nicht möchten, dass Cookies zur Reichweitenmessung auf Ihrem Endgerät gespeichert werden, können Sie dem Einsatz dieser Dateien hier widersprechen:?->Cookie-Deaktivierungsseite der Netzwerkwerbeinitiative: http://optout.networkadvertising.org/?c=1#!/?->Cookie-Deaktivierungsseite der US-amerikanischen Website: http://optout.aboutads.info/?c=2#!/?->Cookie-Deaktivierungsseite der europäischen Website: http://optout.networkadvertising.org/?c=1#!/?Gängige Browser bieten die Einstellungsoption, Cookies nicht zuzulassen. Hinweis: Es ist nicht gewährleistet, dass Sie auf alle Funktionen dieser Website ohne Einschränkungen zugreifen können, wenn Sie entsprechende Einstellungen vornehmen.<br><br>
+        
+        Erfassung und Verarbeitung personenbezogener Daten<br>
+        Der Websitebetreiber erhebt, nutzt und gibt Ihre personenbezogenen Daten nur dann weiter, wenn dies im gesetzlichen Rahmen erlaubt ist oder Sie in die Datenerhebung einwilligen.?Als personenbezogene Daten gelten sämtliche Informationen, welche dazu dienen, Ihre Person zu bestimmen und welche zu Ihnen zurückverfolgt werden können ‚“ also beispielsweise Ihr Name, Ihre E-Mail-Adresse und Telefonnummer.?Diese Website können Sie auch besuchen, ohne Angaben zu Ihrer Person zu machen. Zur Verbesserung unseres Online-Angebotes speichern wir jedoch (ohne Personenbezug) Ihre Zugriffsdaten auf diese Website. Zu diesen Zugriffsdaten gehören z. B. die von Ihnen angeforderte Datei oder der Name Ihres Internet-Providers. Durch die Anonymisierung der Daten sind Rückschlüsse auf Ihre Person nicht möglich.<br><br>
+       
+        Umgang mit Kommentaren und Beiträgen<br>
+        Hinterlassen Sie auf dieser Website einen Beitrag oder Kommentar, wird Ihre IP-Adresse gespeichert. Dies erfolgt aufgrund unserer berechtigten Interessen im Sinne des Art. 6 Abs. 1 lit. f. DSGVO und dient der Sicherheit von uns als Websitebetreiber: Denn sollte Ihr Kommentar gegen geltendes Recht verstoßen, können wir dafür belangt werden, weshalb wir ein Interesse an der Identität des Kommentar- bzw. Beitragsautors haben.<br><br>
+        
+        Google Analytics<br>
+        Diese Website nutzt aufgrund unserer berechtigten Interessen zur Optimierung und Analyse unseres Online-Angebots im Sinne des Art. 6 Abs. 1 lit. f. DSGVO den Dienst ‚Google Analytics‘, welcher von der Google Inc. (1600 Amphitheatre Parkway Mountain View, CA 94043, USA) angeboten wird. Der Dienst (Google Analytics) verwendet ‚Cookies‘, Textdateien, welche auf Ihrem Endgerät gespeichert werden. Die durch die Cookies gesammelten Informationen werden im Regelfall an einen Google-Server in den USA gesandt und dort gespeichert.?Google LLC hält das europäische Datenschutzrecht ein und ist unter dem Privacy-Shield-Abkommen zertifiziert: https://www.privacyshield.gov/participant?id=a2zt000000001L5AAI&status=Active?Auf dieser Website greift die IP-Anonymisierung. Die IP-Adresse der Nutzer wird innerhalb der Mitgliedsstaaten der EU und des Europäischen Wirtschaftsraum und in den anderen Vertragsstaaten des Abkommens gekürzt. Nur in Einzelfällen wird die IP-Adresse zunächst ungekürzt in die USA an einen Server von Google übertragen und dort gekürzt. Durch diese Kürzung entfällt der Personenbezug Ihrer IP-Adresse. Die vom Browser übermittelte IP-Adresse des Nutzers wird nicht mit anderen von Google gespeicherten Daten kombiniert.?Im Rahmen der Vereinbarung zur Auftragsdatenvereinbarung, welche wir als Websitebetreiber mit der Google Inc. geschlossen haben, erstellt diese mithilfe der gesammelten Informationen eine Auswertung der Websitenutzung und der Websiteaktivität und erbringt mit der Internetnutzung verbundene Dienstleistungen.?Die von Google in unserem Auftrag erhobenen Daten werden genutzt, um die Nutzung unseres Online-Angebots durch die einzelnen Nutzer auswerten zu können, z. B. um Reports über die Aktivität auf der Website zu erstellen, um unser Online-Angebot zu verbessern.?Sie haben die Möglichkeit, die Speicherung der Cookies auf Ihrem Gerät zu verhindern, indem Sie in Ihrem Browser entsprechende Einstellungen vornehmen. Es ist nicht gewährleistet, dass Sie auf alle Funktionen dieser Website ohne Einschränkungen zugreifen können, wenn Ihr Browser keine Cookies zulässt.?Weiterhin können Sie durch ein Browser-Plugin verhindern, dass die durch Cookies gesammelten Informationen (inklusive Ihrer IP-Adresse) an die Google Inc. gesendet und von der Google Inc. genutzt werden. Folgender Link führt Sie zu dem entsprechenden Plugin: https://tools.google.com/dlpage/gaoptout?hl=de?Alternativ verhindern Sie mit einem Klick auf diesen Link (WICHTIG: Opt-Out-Link einfügen), dass Google Analytics innerhalb dieser Website Daten über Sie erfasst. Mit dem Klick auf obigen Link laden Sie ein ‚Opt-Out-Cookie‘, herunter. Ihr Browser muss die Speicherung von Cookies also hierzu grundsätzlich erlauben. Löschen Sie Ihre Cookies regelmäßig, ist ein erneuter Klick auf den Link bei jedem Besuch dieser Website vonnöten.?Hier finden Sie weitere Informationen zur Datennutzung durch die Google Inc.:?->https://policies.google.com/privacy/partners?hl=de (Daten, die von Google-Partnern erhoben werden)?->https://adssettings.google.de/authenticated (Einstellungen über Werbung, die Ihnen angezeigt wird)?->https://policies.google.com/technologies/ads?hl=de (Verwendung von Cookies in Anzeigen)<br><br>
+
+        Nutzung von Social-Media-Plugins von Facebook<br>
+        Aufgrund unseres berechtigten Interesses an der Analyse, Optimierung und dem Betrieb unseres Online-Angebotes (im Sinne des Art. 6 Abs. 1 lit. f. DSGVO), verwendet diese Website das Facebook-Social-Plugin, welches von der Facebook Inc. (1 Hacker Way, Menlo Park, California 94025, USA) betrieben wird. Erkennbar sind die Einbindungen an dem Facebook-Logo bzw. an den Begriffen ‚Like‘, ‚Gefällt mir‘, ‚Teilen‘, in den Farben Facebooks (Blau und Weiß). Informationen zu allen Facebook-Plugins finden Sie über den folgenden Link: https://developers.facebook.com/docs/plugins/?Facebook Inc. hält das europäische Datenschutzrecht ein und ist unter dem Privacy-Shield-Abkommen zertifiziert: https://www.privacyshield.gov/participant?id=a2zt0000000GnywAAC&status=Active?Das Plugin stellt eine direkte Verbindung zwischen Ihrem Browser und den Facebook-Servern her. Der Websitebetreiber hat keinerlei Einfluss auf die Natur und den Umfang der Daten, welche das Plugin an die Server der Facebook Inc. übermittelt. Informationen dazu finden Sie hier: https://www.facebook.com/help/186325668085084?Das Plugin informiert die Facebook Inc. darüber, dass Sie als Nutzer diese Website besucht haben. Es besteht hierbei die Möglichkeit, dass Ihre IP-Adresse gespeichert wird. Sind Sie während des Besuchs auf dieser Website in Ihrem Facebook-Konto eingeloggt, werden die genannten Informationen mit diesem verknüpft.?Nutzen Sie die Funktionen des Plugins ‚“ etwa indem Sie einen Beitrag teilen oder ‚liken‘, werden die entsprechenden Informationen ebenfalls an die Facebook Inc. übermittelt.?Möchten Sie verhindern, dass die Facebook. Inc. diese Daten mit Ihrem Facebook-Konto verknüpft, loggen Sie sich bitte vor dem Besuch dieser Website bei Facebook aus und löschen Sie die gespeicherten Cookies. Über Ihr Facebook-Profil können Sie weitere Einstellungen zur Datenverarbeitung für Werbezwecke tätigen oder der Nutzung Ihrer Daten für Werbezwecke widersprechen. Zu den Einstellungen gelangen Sie hier:?->Profileinstellungen bei Facebook: https://www.facebook.com/ads/preferences/?entry_product=ad_settings_screen?->Cookie-Deaktivierungsseite der US-amerikanischen Website: http://optout.aboutads.info/?c=2#!/?->Cookie-Deaktivierungsseite der europäischen Website: http://optout.networkadvertising.org/?c=1#!/?Welche Daten, zu welchem Zweck und in welchem Umfang Facebook Daten erhebt, nutzt und verarbeitet und welche Rechte sowie Einstellungsmöglichkeiten Sie zum Schutz Ihrer Privatsphäre haben, können Sie in den Datenschutzrichtlinien von Facebook nachlesen. Diese finden Sie hier: https://www.facebook.com/about/privacy/<br><br>
+        
+        Rechte des Nutzers<br>
+        Sie haben als Nutzer das Recht, auf Antrag eine kostenlose Auskunft darüber zu erhalten, welche personenbezogenen Daten über Sie gespeichert wurden. Sie haben außerdem das Recht auf Berichtigung falscher Daten und auf die Verarbeitungseinschränkung oder Löschung Ihrer personenbezogenen Daten. Falls zutreffend, können Sie auch Ihr Recht auf Datenportabilität geltend machen. Sollten Sie annehmen, dass Ihre Daten unrechtmäßig verarbeitet wurden, können Sie eine Beschwerde bei der zuständigen Aufsichtsbehörde einreichen.<br><br>
+        
+        Löschung von Daten<br>
+        Sofern Ihr Wunsch nicht mit einer gesetzlichen Pflicht zur Aufbewahrung von Daten (z. B. Vorratsdatenspeicherung) kollidiert, haben Sie ein Anrecht auf Löschung Ihrer Daten. Von uns gespeicherte Daten werden, sollten sie für ihre Zweckbestimmung nicht mehr vonnöten sein und es keine gesetzlichen Aufbewahrungsfristen geben, gelöscht. Falls eine Löschung nicht durchgeführt werden kann, da die Daten für zulässige gesetzliche Zwecke erforderlich sind, erfolgt eine Einschränkung der Datenverarbeitung. In diesem Fall werden die Daten gesperrt und nicht für andere Zwecke verarbeitet.<br><br>
+
+        Widerspruchsrecht<br>
+        Nutzer dieser Webseite können von ihrem Widerspruchsrecht Gebrauch machen und der Verarbeitung ihrer personenbezogenen Daten zu jeder Zeit widersprechen. Wenn Sie eine Berichtigung, Sperrung, Löschung oder Auskunft über die zu Ihrer Person gespeicherten personenbezogenen Daten wünschen oder Fragen bzgl. der Erhebung, Verarbeitung oder Verwendung Ihrer personenbezogenen Daten haben oder erteilte Einwilligungen widerrufen möchten, wenden Sie sich bitte an folgende E-Mail-Adresse: datenschutz [AT] schlagermetall [punkt] de<br>
+
+      
+    </p>
+  </div>
+
+</section>
+    
+<footer>
+  <span>© 2026 SchlagerMetall</span>
+  <a href="#top" class="to-top">nach oben ↑</a>
+</footer>
+
+<script>
+  const toggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav-links');
+
+  if (toggle && nav) {
+    toggle.addEventListener('click', () => {
+      nav.classList.toggle('active');
+    });
+  }
+</script>
+
+    <script>
+const player = document.getElementById("globalPlayer");
+const tracks = document.querySelectorAll(".track");
+
+tracks.forEach(track => {
+  if (!track) return;
+  track.addEventListener("click", () => {
+
+    const src = track.dataset.src;
+    if (!src) return;
+
+    // alle anderen stoppen
+    player.pause();
+    player.currentTime = 0;
+
+    // neuen Track laden
+    player.src = src;
+    player.load();
+
+    player.play().catch(() => {
+      // Autoplay-Blocker ignorieren
+    });
+
+    // UI reset
+    tracks.forEach(t => t.classList.remove("active"));
+    track.classList.add("active");
+
+  });
+});
+</script>
+
+<script>
+const toggleBtn = document.querySelector(".toggle-impressum");
+const content = document.querySelector(".impressum-content");
+
+if (toggleBtn && content) {
+  toggleBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    content.classList.toggle("open");
+
+    toggleBtn.textContent = content.classList.contains("open")
+      ? "verbergen"
+      : "anzeigen";
+  });
+}
+</script>
+
+<script>
+window.addEventListener("scroll", () => {
+  const header = document.querySelector("header");
+
+  if (window.scrollY > 20) {
+    header.style.boxShadow = "0 10px 30px rgba(0,0,0,0.8)";
+  } else {
+    header.style.boxShadow = "none";
+  }
+});
+</script>
+
+<script>
+const slides = document.querySelectorAll(".hero-slide");
+const nextBtn = document.querySelector(".hero-arrow.right");
+const prevBtn = document.querySelector(".hero-arrow.left");
+
+let current = 0;
+
+function showSlide(index) {
+  slides[current].classList.remove("active");
+
+  current = (index + slides.length) % slides.length;
+
+  slides[current].classList.add("active");
+}
+
+nextBtn.addEventListener("click", () => {
+  showSlide(current + 1);
+});
+
+prevBtn.addEventListener("click", () => {
+  showSlide(current - 1);
+});
+</script>
+
+</body>
+</html>
