@@ -1485,9 +1485,30 @@ audio {
   const nav = document.querySelector('.nav-links');
 
   if (toggle && nav) {
-    toggle.addEventListener('click', () => {
+
+    // Button klick → Menü auf/zu
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation(); // verhindert, dass der Klick sofort wieder schließt
       nav.classList.toggle('active');
     });
+
+    // Klick auf Menü-Link → Menü schließen
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+      });
+    });
+
+    // Klick irgendwo außerhalb → Menü schließen
+    document.addEventListener('click', (e) => {
+      const isClickInsideNav = nav.contains(e.target);
+      const isClickOnToggle = toggle.contains(e.target);
+
+      if (!isClickInsideNav && !isClickOnToggle) {
+        nav.classList.remove('active');
+      }
+    });
+
   }
 </script>
 
