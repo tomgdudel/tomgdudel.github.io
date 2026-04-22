@@ -610,14 +610,15 @@ audio {
   a[href^="mailto"]:hover {
   color: var(--accent-red);
 }
-  
-  /* ===== BOOKING ===== */  
+
+     /* ===== BOOKING ===== */  
    .booking {
   display: flex;
   flex-direction: column;
 }
 
 .booking-row {
+  background: red;
   display: flex;
   flex-wrap: nowrap;
   align-items: baseline;
@@ -639,7 +640,15 @@ audio {
   flex: 1;
   white-space: nowrap;
 }    
-      
+
+.booking-wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+       
   /* ===== DOWNLOADS im Bereich Für Veranstalter===== */
 
 .download-item {
@@ -1387,15 +1396,19 @@ audio {
   Kontakt für Booking-Anfragen:
 </p>
 
-<img src="images/ks_logo.jpg" alt="KS Concerts Logo"><br>
+<div class="booking-wrapper">
+  <img src="images/ks_logo.jpg" alt="KS Concerts Logo">
 
-<div class="booking">
-  <div class="booking-row">
-    <span class="b-left">Sven Komp</span>
-    <span class="b-label">Tel</span>
-    <span class="b-value">0228 – 47 95 70</span>
+  <div class="booking">
+    <div class="booking-row">
+      <span class="b-left">Sven Komp</span>
+      <span class="b-label">Tel</span>
+      <span class="b-value">0228 – 47 95 70</span>
+    </div>
   </div>
+</div>
 
+  
   <div class="booking-row">
     <span class="b-left">Königswinterer Str.</span>
     <span class="b-label">Fax</span>
