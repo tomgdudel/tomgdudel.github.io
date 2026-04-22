@@ -1026,7 +1026,7 @@ audio {
 /* ===== BOOKING ===== */
   
   .booking-row {
-    background: blue;
+    background: red;
     display: flex;
     flex-wrap: nowrap;
     align-items: baseline;
@@ -1047,7 +1047,7 @@ audio {
 
 /* links (Name/Adresse) */
 .b-left {
-  flex: 0 0 clamp(40px, 35vw, 600px);
+  flex: 0 0 clamp(40px, 50vw, 600px);
 }
 
 /* Tel / Fax / Mobil → exakt untereinander */
@@ -1182,6 +1182,13 @@ audio {
     justify-self: end;
     white-space: nowrap;
   }
+
+  .booking-wrapper {
+    grid-template-columns: auto 1fr !important;
+    align-items: start;
+  }
+
+
 }
       
 /* =========================
