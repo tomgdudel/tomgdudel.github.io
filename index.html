@@ -1025,6 +1025,7 @@ audio {
 
 /* ===== BOOKING ===== */
   .booking-row {
+    background: green;
     display: flex;
     flex-wrap: nowrap;
     align-items: baseline;
@@ -1033,8 +1034,12 @@ audio {
     
   }
 
-  /* ===== BOOKING ===== */  
-   .booking {
+  .booking-wrapper {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .booking {
   display: flex;
   flex-direction: column;
 }
