@@ -1659,6 +1659,12 @@ nextBtn.addEventListener("click", () => {
 prevBtn.addEventListener("click", () => {
   showSlide(current - 1);
 });
+
+let autoRotate = setInterval(() => {
+  showSlide(current + 1);
+}, 10000); // 10 Sekunden pro Hero
+
+  
 </script>
 
 </body>
