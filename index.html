@@ -618,7 +618,6 @@ audio {
 }
 
 .booking-row {
-  background: red !important;
   display: flex;
   flex-wrap: nowrap;
   align-items: baseline;
@@ -1025,6 +1024,23 @@ audio {
     padding-right: 0px;
   }
 
+  /* ===== BOOKING ===== */  
+   .booking {
+  display: flex;
+  flex-direction: column;
+}
+
+/* links (Name/Adresse) */
+.b-left {
+  flex: 0 0 clamp(40px, 20vw, 180px);
+}
+
+/* Tel / Fax / Mobil → exakt untereinander */
+.b-label {
+  flex: 0 0 clamp(30px, 12vw, 50px);
+}
+
+  
 
   
     /* ===== IMPRESSUM ===== */
